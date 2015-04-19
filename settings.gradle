@@ -1,0 +1,8 @@
+// include json inject subproject
+include 'json'
+
+rootProject.name = 'alchemy-inject'
+
+// append auth to each root project name to each child
+rootProject.children.each { it.name = rootProject.name + "-" + it.name }
+

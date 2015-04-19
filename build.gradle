@@ -1,0 +1,40 @@
+apply from: "config/common.build.gradle"
+
+
+gradle.taskGraph.whenReady {taskGraph ->
+    if (taskGraph.hasTask(release)) {
+        version = '1.0'
+    } else {
+        version = '1.0-SNAPSHOT'
+    }
+}
+
+dependencies {
+    // compile dependencies
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.9'
+    compile 'commons-configuration:commons-configuration:1.10'
+    
+    // test dependencies
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile 'com.fasterxml.jackson.core:jackson-core:2.5.1'
+    testCompile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
+    testCompile 'com.fasterxml.jackson.core:jackson-annotations:2.5.1'
+}
+
+// subproject configuration
+subprojects {
+    // make sure sonar plugin is not applied to subprojects.
+    // the plugin works for subprojects when applied to the root project
+    project.ext.set("skipSonarPlugin", true)
+
+    apply from: "config/common.build.gradle"
+
+    gradle.taskGraph.whenReady {taskGraph ->
+        if (taskGraph.hasTask(release)) {
+            version = '1.0'
+        } else {
+            version = '1.0-SNAPSHOT'
+        }
+    }
+}
+
