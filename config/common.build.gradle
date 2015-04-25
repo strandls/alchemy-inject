@@ -154,7 +154,7 @@ uploadArchives {
                 name "Alchemy Inject"
                 packaging 'jar'
                 // optionally artifactId can be defined here
-                description ' A guice module discovery module with support for multi environments'
+                description 'A guice module discovery module with support for multiple environments.'
                 url 'https://github.com/strandls/alchemy-inject'
 
                 scm {
