@@ -1,19 +1,18 @@
-**Table of Contents**
-
-- [Alchemy Inject](#alchemy-inject)
-  - [Usage](#usage)
-    - [Adding gradle dependency](#adding-gradle-dependency)
-    - [Adding maven dependency](#adding-maven-dependency)
-    - [Marking modules for discovery](#marking-modules-for-discovery)
-    - [Creating the injector](#creating-the-injector)
-    - [Excluding modules while creating the injector](#excluding-modules-while-creating-the-injector)
-  - [Demo](#demo)
-  - [Contributing](#contributing)
-  - [Copyright and license](#copyright-and-license)
-
-
 # Alchemy Inject
 
+ - [Overview](#overview)
+ - [Usage](#usage)
+   - [Adding gradle dependency](#adding-gradle-dependency)
+   - [Adding maven dependency](#adding-maven-dependency)
+   - [Marking modules for discovery](#marking-modules-for-discovery)
+   - [Creating the injector](#creating-the-injector)
+   - [Excluding modules while creating the injector](#excluding-modules-while-creating-the-injector)
+ - [Demo](#demo)
+ - [Contributing](#contributing)
+ - [Copyright and license](#copyright-and-license)
+
+
+## Overview
 A guice module discovery module with support for multiple environments. Alchemy Inject tries to deal with the problem of creating guice injector in a reliable and decentralized manner. The idea is to write a guice module and mark it with an environment it is relevant it and it should be applied.
 
 The injector also contains a discovery mechanism for discovering [Jackson] modules and auto injecting the ObjectMapper.
