@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Alchemy Inject Authors
+ * Copyright (C) 2015 Strand Life Sciences.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation marking Alchemy modules.
  *
- * @author ashish
+ * @author Ashish Shinde
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })
@@ -32,7 +32,7 @@ public @interface AlchemyModule {
     /**
      * The environment the annotated module should be applied in.
      *
-     * @author ashish
+     * @author Ashish Shinde
      */
     public static enum Environment {
         /**

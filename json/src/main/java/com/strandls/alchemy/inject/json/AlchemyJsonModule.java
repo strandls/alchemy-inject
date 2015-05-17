@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Alchemy Inject Authors
+ * Copyright (C) 2015 Strand Life Sciences.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import com.strandls.alchemy.inject.AlchemyModule.Environment;
 /**
  * Annotation marking Alchemy json modules.
  *
- * @author ashish
+ * @author Ashish Shinde
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })

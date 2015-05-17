@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Alchemy Inject Authors
+ * Copyright (C) 2015 Strand Life Sciences.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ import com.google.common.cache.LoadingCache;
  * results making it slow. This implementation will speed up class queries
  * because a lot of different classes would fire similar queries.
  *
- * @author ashish
+ * @author Ashish Shinde
  *
  */
 @Singleton
@@ -54,7 +54,7 @@ public class CachingJavaTypeQueryHandler implements JavaTypeQueryHandler {
     /**
      * Represents a query for an Annotation.
      *
-     * @author ashish
+     * @author Ashish Shinde
      *
      */
     @EqualsAndHashCode
@@ -73,7 +73,7 @@ public class CachingJavaTypeQueryHandler implements JavaTypeQueryHandler {
     /**
      * Filter clases objects that are not safe to load.
      *
-     * @author saurav
+     * @author Ashish Shinde
      *
      */
     private static final class ClassObjectFilter {
@@ -93,7 +93,7 @@ public class CachingJavaTypeQueryHandler implements JavaTypeQueryHandler {
     /**
      * Represents a query for a subtype.
      *
-     * @author ashish
+     * @author Ashish Shinde
      */
     @EqualsAndHashCode
     @RequiredArgsConstructor
@@ -115,7 +115,7 @@ public class CachingJavaTypeQueryHandler implements JavaTypeQueryHandler {
      * The name has to be SubTypesScanner because reflections uses that as the
      * cache key.
      *
-     * @author saurav
+     * @author Ashish Shinde
      *
      */
     private static final class SubTypesScanner extends org.reflections.scanners.SubTypesScanner {
@@ -162,7 +162,7 @@ public class CachingJavaTypeQueryHandler implements JavaTypeQueryHandler {
      * The name has to be SubTypesScanner because reflections uses that as the
      * cache key.
      *
-     * @author saurav
+     * @author Ashish Shinde
      *
      */
     private static final class TypeAnnotationsScanner extends

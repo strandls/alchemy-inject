@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Alchemy Inject Authors
+ * Copyright (C) 2015 Strand Life Sciences.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import com.strandls.alchemy.inject.AlchemyModule.Environment;
  * For configuring the {@link Feature} bind an instance of {@link JsonFactory}.
  * </p>
  *
- * @author ashish
+ * @author Ashish Shinde
  *
  */
 @Singleton
