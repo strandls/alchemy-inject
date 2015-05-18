@@ -82,9 +82,9 @@ Note you can now keep adding newer guice modules without having to worry about c
 
 ### Excluding modules while creating the injector
 
-With large complex projects you might hit a case where you have conflicting bindings. With Alchrmy inject you could resolve these bindings or filter out some modules using a configuration file places in your application classpath.
+With large complex projects you might hit a case where you have conflicting bindings. With Alchemy inject you could resolve these bindings or filter out some modules using a configuration file placed in your application classpath.
 
-The file written with .ini format should be named **alchemy-modules.ini**. Here is a sample file
+The file, written in .ini format, should be named **alchemy-modules.ini**. Here is a sample file
 
 ```
 [Prod]
@@ -97,7 +97,7 @@ filter=com.strandls.alchemy.webservices.client.JaxRsClientModule
 
 ```
 
-With this configuration file all modules with dummy ignoring case in there FQCN will be filtered out from the production environment. The filter expressions are [JavaRegex][Java regular expressions].
+With this configuration file all modules with dummy (ignoring case) in there fully qualified class name, will be filtered out from the production environment. The filter expressions are [JavaRegex][Java regular expressions].
 
 
 ## Demo
