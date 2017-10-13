@@ -18,17 +18,18 @@ package com.strandls.alchemy.inject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 
 import com.google.common.collect.Collections2;
 import com.google.inject.Module;
 import com.strandls.alchemy.inject.AlchemyModule.Environment;
 import com.strandls.alchemy.reflect.CachingJavaTypeQueryHandler;
 import com.strandls.alchemy.reflect.JavaTypeQueryHandler;
+
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Provides a list of Alchemy modules.
@@ -38,20 +39,38 @@ import com.strandls.alchemy.reflect.JavaTypeQueryHandler;
 @Slf4j
 public class AlchemyModuleLister {
     /**
-     * For querying classes.
-     */
-    private static final JavaTypeQueryHandler typeQueryHandler;
-
-    /**
      * For applying filter on the classes.
      */
     private static final AlchemyModuleFilterConfiguration filterConfiguration;
+
+    /**
+     * For static module listing.
+     */
+    private static final AlchemyStaticModuleConfiguration staticModuleConfiguration;
+
+    /**
+     * For querying classes.
+     */
+    private static final JavaTypeQueryHandler typeQueryHandler;
 
     static {
         // This class is used to create injectors all over. Hence the query type
         // handler cannot be injected here.
         typeQueryHandler = new CachingJavaTypeQueryHandler(100000, 1000);
         filterConfiguration = new AlchemyModuleFilterConfiguration();
+        staticModuleConfiguration = new AlchemyStaticModuleConfiguration();
+    }
+
+    /**
+     * Get all guice {@link Module}s for a give environment.
+     *
+     * @param environmentpackageRegex
+     *            the environment to get modules for. Cannot be
+     *            <code>null</code>.
+     * @return
+     */
+    public Collection<Module> getModules(@NonNull final Environment environment) {
+        return getModules(environment, ".*");
     }
 
     /**
@@ -60,12 +79,32 @@ public class AlchemyModuleLister {
      * @param environment
      *            the environment to get modules for. Cannot be
      *            <code>null</code>.
+     * @param packageRegex
+     *            the regex for the package to search for modules in. Use ".*" to
+     *            search for all packages.
      * @return
      */
-    public Collection<Module> getModules(@NonNull final Environment environment) {
-        // get all classes with Alchemy module marker
-        final Set<Class<?>> classes =
-                typeQueryHandler.getTypesAnnotatedWith(".*", AlchemyModule.class);
+    public Collection<Module> getModules(@NonNull final Environment environment,
+            final String packageRegex) {
+
+        final Set<Class<?>> classes = new HashSet<>();
+        final Set<String> staticModules =
+                staticModuleConfiguration.getStaticModuleConfiguration(environment);
+        if (!staticModules.isEmpty()) {
+            // initialize static module list.
+            staticModules.forEach(moduleName -> {
+                try {
+                    classes.add(getClass().getClassLoader().loadClass(moduleName));
+                } catch (final ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } else {
+            // get all classes with Alchemy module marker
+            classes.addAll(
+                    typeQueryHandler.getTypesAnnotatedWith(packageRegex, AlchemyModule.class));
+        }
+
         final List<Module> modules = new ArrayList<Module>();
 
         log.debug("Looking for modules in Environment: {}", environment);
@@ -85,6 +124,7 @@ public class AlchemyModuleLister {
                 throw new RuntimeException(e);
             }
         }
+
         // apply the filter and return the result
         return Collections2.filter(modules,
                 new AlchemyModuleFilter(filterConfiguration.getFilterConfiguration(environment)));

@@ -11,16 +11,9 @@ apply plugin: 'signing'
 // set the group
 group = "com.strandls." + project.name.split("-")[0]
 
-// Sonar project can be applied only once in a multiproject build.
-// A hack to ensure it is applied only once
-if ( !project.ext.properties.containsKey("skipSonarPlugin") || !project.ext['skipSonarPlugin']) {
-    apply plugin: "sonar"
-}
-
-
 // java configuration
-targetCompatibility = 1.7
-sourceCompatibility = 1.7
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
 
 // Repository configuration
 repositories { mavenCentral() }
@@ -104,7 +97,9 @@ eclipse.project { natures 'org.springsource.ide.eclipse.gradle.core.nature' }
 jar { manifest.attributes provider: 'Strand Life Sciences Pvt. Ltd.' }
 
 // Dummy release task to differentiate between release and snapshot distributions
-task release() << {
+task release() { 
+	doLast {
+	}
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -118,9 +113,11 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 // create java project structure
-task "createJavaDirs" << {
-    sourceSets*.java.srcDirs*.each { it.mkdirs() }
-    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+task "createJavaDirs" {
+	doLast {
+    	sourceSets*.java.srcDirs*.each { it.mkdirs() }
+    	sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+	}
 }
 
 // enable html output for find bugs
