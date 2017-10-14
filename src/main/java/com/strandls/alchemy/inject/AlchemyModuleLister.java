@@ -64,10 +64,10 @@ public class AlchemyModuleLister {
     /**
      * Get all guice {@link Module}s for a give environment.
      *
-     * @param environmentpackageRegex
+     * @param environment
      *            the environment to get modules for. Cannot be
      *            <code>null</code>.
-     * @return
+     * @return modules matching the environment from all packages in the classpath.
      */
     public Collection<Module> getModules(@NonNull final Environment environment) {
         return getModules(environment, ".*");
@@ -82,7 +82,7 @@ public class AlchemyModuleLister {
      * @param packageRegex
      *            the regex for the package to search for modules in. Use ".*" to
      *            search for all packages.
-     * @return
+     * @return modules matching the environment belonging to desired packages.
      */
     public Collection<Module> getModules(@NonNull final Environment environment,
             final String packageRegex) {

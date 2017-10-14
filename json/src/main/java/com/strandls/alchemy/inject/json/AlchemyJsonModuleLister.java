@@ -24,14 +24,14 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import com.fasterxml.jackson.databind.Module;
 import com.google.inject.Injector;
 import com.strandls.alchemy.inject.AlchemyModule.Environment;
 import com.strandls.alchemy.reflect.JavaTypeQueryHandler;
+
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Provides a list of Alchemy jackson json modules.
@@ -40,17 +40,17 @@ import com.strandls.alchemy.reflect.JavaTypeQueryHandler;
  */
 @Slf4j
 @Singleton
-@RequiredArgsConstructor(onConstructor = @_(@Inject))
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class AlchemyJsonModuleLister {
-    /**
-     * For querying classes.
-     */
-    private final JavaTypeQueryHandler typeQueryHandler;
-
     /**
      * Guice injector for creating instances.
      */
     private final Injector injector;
+
+    /**
+     * For querying classes.
+     */
+    private final JavaTypeQueryHandler typeQueryHandler;
 
     /**
      * Get all guice {@link Module}s for a give environment.
@@ -61,9 +61,24 @@ public class AlchemyJsonModuleLister {
      * @return list of json modules matching the environment.
      */
     public Collection<Module> getModules(@NonNull final Environment environment) {
+        return getModules(environment, ".*");
+    }
+
+    /**
+     * Get all guice {@link Module}s for a give environment.
+     *
+     * @param environment
+     *            the environment to get modules for. Cannot be
+     *            <code>null</code>.
+     * @param packageRegex
+     *            package regex to search for json modules in.
+     * @return list of json modules matching the environment.
+     */
+    public Collection<Module> getModules(@NonNull final Environment environment,
+            final String packageRegex) {
         // get all classes with Alchemy module marker
         final Set<Class<?>> classes =
-                typeQueryHandler.getTypesAnnotatedWith(".*", AlchemyJsonModule.class);
+                typeQueryHandler.getTypesAnnotatedWith(packageRegex, AlchemyJsonModule.class);
         final List<Module> modules = new ArrayList<Module>();
 
         log.debug("Looking for json modules in Environment: {}", environment);

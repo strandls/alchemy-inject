@@ -38,7 +38,7 @@ public interface JavaTypeQueryHandler {
      *            in.
      * @param type
      *            the required super type.
-     * @return
+     * @return subtypes for the queried type.
      */
     <T> Set<Class<? extends T>> getSubTypesOf(final String packageRegex, final Class<T> type);
 

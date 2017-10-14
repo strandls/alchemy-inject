@@ -43,7 +43,7 @@ import com.strandls.alchemy.inject.AlchemyModule.Environment;
  *
  */
 @Singleton
-@RequiredArgsConstructor(onConstructor = @_(@Inject))
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 @Slf4j
 public class JsonObjectMapperProvider implements Provider<ObjectMapper> {
     /**
